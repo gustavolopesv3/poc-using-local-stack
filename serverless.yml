@@ -1,0 +1,24 @@
+service: local-stack-demo-serverless
+
+plugins:
+  - serverless-localstack
+
+custom:
+  localstack: 
+    debug: true
+    stages:
+      - local
+      - dev
+    endpointFile: ./localstack_endpoints.json
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions: 
+  local-stack: 
+    handler: handler.hello
+    events: 
+      - http: 
+          path: hello
+          method: get
